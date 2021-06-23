@@ -21,6 +21,10 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  provider: ^5.0.0
+  redux: ^5.0.0
+  fast_progress_hub:
+    path: ../
   flutter:
     sdk: flutter
 
