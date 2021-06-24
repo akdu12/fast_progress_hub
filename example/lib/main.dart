@@ -1,16 +1,22 @@
 import 'package:fast_progress_hub/fast_progress_hub.dart';
 import 'package:flutter/material.dart';
-import 'package:redux/redux.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(CustomIndicatorExample());
 }
 
-class MyApp extends StatelessWidget {
+class CustomIndicatorExample extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return FastProgressHub(
+      progressIndicator: SizedBox(
+        width: 50,
+        height: 50,
+        child: LoadingIndicator(
+            indicatorType: Indicator.squareSpin, color: Colors.lightBlue),
+      ),
       loading: false,
       dismissible: true,
       child: MaterialApp(
@@ -18,69 +24,27 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: ReduxExample(),
+        home: Home(),
       ),
     );
   }
 }
 
-class ProviderExample extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // Create the store with our Reducer and Middleware
-    bool dummyRedux(bool state, action) {
-      return !state;
-    }
-
-    final store = new Store<bool>(
-      dummyRedux,
-      initialState: false,
-      middleware: [],
-    );
-    store.onChange.listen((event) {});
-  }
-}
-
-class ReduxExample extends StatefulWidget {
-  @override
-  State createState() {
-    return _ReduxExampleState();
-  }
-}
-
-class _ReduxExampleState extends State<ReduxExample> {
-  // Create the store with our Reducer and Middleware
-  bool dummyRedux(bool state, action) {
-    return !state;
-  }
-
-  Store store;
-
-  @override
-  void initState() {
-    store = Store<bool>(
-      dummyRedux,
-      initialState: false,
-      middleware: [],
-    );
-    store.onChange.listen((state) {
-      FastProgressHub.of(context).loading = state;
-    });
-    super.initState();
-  }
-
+class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        constraints: BoxConstraints.expand(),
-        color: Colors.red,
+      body: Center(
+        child: TextButton(
+          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.lightBlue)),
+            onPressed: () {
+              FastProgressHub.of(context)!.show();
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("make async call",style: TextStyle(color: Colors.white),),
+            )),
       ),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            store.dispatch("Toggle");
-          }),
     );
   }
 }
