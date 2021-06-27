@@ -36,13 +36,17 @@ class Home extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: TextButton(
-          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.lightBlue)),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.lightBlue)),
             onPressed: () {
-              FastProgressHub.of(context)!.show();
+              FastProgressHub.of(context)!.startLoading();
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("make async call",style: TextStyle(color: Colors.white),),
+              child: Text(
+                "make async call",
+                style: TextStyle(color: Colors.white),
+              ),
             )),
       ),
     );

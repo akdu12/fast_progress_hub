@@ -56,11 +56,11 @@ class _FastProgressHubState extends State<FastProgressHub> {
     super.didUpdateWidget(oldWidget);
   }
 
-  void show() {
+  void startLoading() {
     loadingNotifier.value = true;
   }
 
-  void close() {
+  void stopLoading() {
     loadingNotifier.value = false;
   }
 
