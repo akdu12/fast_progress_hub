@@ -88,7 +88,10 @@ class _FastProgressHubState extends State<FastProgressHub> {
                         child: widget.progressIndicator ??
                             CircularProgressIndicator()),
                   )
-                : SizedBox.shrink();
+                : Positioned(
+                top: 0,
+                left: 0,
+                child: SizedBox.shrink());
           },
         )
       ],
